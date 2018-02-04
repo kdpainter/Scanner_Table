@@ -6,9 +6,9 @@
 #include "swtimer.h"
 #include "A4988.h"
 
-#define  LC_INCLUDE "lc-addrlabels.h"
+#define  LC_INCLUDE "lc-addrlabels.h"  //We are using gcc so this is legal
 #include "pt.h"
-#include "pt_sem_kdp.h"
+#include "pt_sem_kdp.h"  //I modified the semaphore defines
 
 typedef struct IRcodestype {
   uint32_t code;
@@ -17,10 +17,10 @@ typedef struct IRcodestype {
 };
 
 enum KEYS {ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE,
-					 CH_MINUS, CH, CH_PLUS, REV, FWD, PLAY, MINUS, PLUS, EQ, 
-					 ONE_HUNDRED_PLUS, TWO_HUNDRED_PLUS};
+           CH_MINUS, CH, CH_PLUS, REV, FWD, PLAY, MINUS, PLUS, EQ, 
+           ONE_HUNDRED_PLUS, TWO_HUNDRED_PLUS};
 
-//If memory becomes scarce, this can be located in flash.  For now, forgo that.					 
+//If memory becomes scarce, this can be located in flash.  For now, forgo that.          
 const IRcodestype remote_codes[] = {
   {0xFFA25D, "CH-",  CH_MINUS},
   {0xFF629D, "CH",   CH},
@@ -79,13 +79,13 @@ void setup() {
   delay(100);
   Serial.println("Turntable controller");
 
-	//stepper 
-	Serial.println("Init stepper driver");
-;
-	stepper.set_timer(&timers[STEP_TIMER], 0);
-	//stepper.set_dir(1);
-	
-	//Timer setup
+  //stepper 
+  Serial.println("Init stepper driver");
+
+  stepper.set_timer(&timers[STEP_TIMER], 0);
+  //stepper.set_dir(1);
+  
+  //Timer setup
   Timer1.initialize(1000); // set timer1 to 1000 microseconds
   Timer1.attachInterrupt( timer1Isr ); // attach the service routine here
 }
@@ -118,18 +118,18 @@ static int IR_Receiver_thread(struct pt *pt) {
       {
         Serial.println(remote_codes[k].text_code);
         switch(remote_codes[k].id_code) {
-        	case CH_MINUS:
-        	  hb_blink = false;
-        	  break;
-        	case CH_PLUS:
-        	  hb_blink = true;
-        	  break;
-        	case PLAY:
-        		stepper.rotate_degrees(10.0, 1);
-        		break;
-        	default:
-        		break;
-        	};
+          case CH_MINUS:
+            hb_blink = false;
+            break;
+          case CH_PLUS:
+            hb_blink = true;
+            break;
+          case PLAY:
+            stepper.rotate_degrees(10.0, 1);
+            break;
+          default:
+            break;
+          };
         
         break;
       }
