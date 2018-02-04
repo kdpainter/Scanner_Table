@@ -1,8 +1,8 @@
 #include <stdint.h>
-#include <TimerOne.h>
 #include "Arduino.h"
 //#include <avr/pgmspace.h>
-#include <IRremote.h>
+#include "IRremote.h"
+#include "TimerOne.h"
 #include "swtimer.h"
 #include "A4988.h"
 
@@ -19,7 +19,8 @@ typedef struct IRcodestype {
 enum KEYS {ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE,
 					 CH_MINUS, CH, CH_PLUS, REV, FWD, PLAY, MINUS, PLUS, EQ, 
 					 ONE_HUNDRED_PLUS, TWO_HUNDRED_PLUS};
-					 
+
+//If memory becomes scarce, this can be located in flash.  For now, forgo that.					 
 const IRcodestype remote_codes[] = {
   {0xFFA25D, "CH-",  CH_MINUS},
   {0xFF629D, "CH",   CH},
