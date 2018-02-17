@@ -61,7 +61,7 @@ bool hb_blink = true;
 enum {IR_TIMER, HB_TIMER, STEP_TIMER, EXPOSURE_TIMER};
 timertype timers[NUM_OF_TIMERS];
 
-A4988 stepper(200, 1, 2);
+A4988 stepper(200, 9, 8);
 
 void setup() {
   // Initialize protothreads:
